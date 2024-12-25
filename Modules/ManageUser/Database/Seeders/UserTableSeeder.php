@@ -26,7 +26,7 @@ class UserTableSeeder extends Seeder
                 User::query()->create([
                     'nama' => 'super_user',
                     'email' => 'admin@admin.com',
-                    'password' => bcrypt('password'),
+                    'password' => 'password',
                     'grup_user_id' => $user_group->id,
                     'telepon' => '08123456789',
                     'is_admin' => true,

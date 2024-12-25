@@ -14,7 +14,7 @@ Website ini dibuat dengan framework Laravel dan Vue.js ini merupakan website yan
 2. Generate main menu data
 - perintah di bawah ini akan menghasilkan file application_main_menu.json di storage/app/public
 ```bash
-  php artisan module:seed ManageUser
+  php artisan generate:main-menu
 ```
 
 3. Jalankan Seeder Database
