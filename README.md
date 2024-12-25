@@ -34,7 +34,10 @@ pass: password
 ```bash
   php artisan storage:link
 ```
-
+6. Dokumentasi command selengkapnya silahkan access di
+```
+  [laravel-module-command](https://nwidart.com/laravel-modules/v6/advanced-tools/artisan-commands)
+```
 
 ## Preview
 
