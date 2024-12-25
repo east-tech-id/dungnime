@@ -26,7 +26,6 @@ class UserController extends Controller
         if ($validator->fails()) {
             return response_json(false, $validator->errors(), $validator->errors()->first());
         }
-
         DB::beginTransaction();
         try {
             $data = User::create($request->all());
@@ -101,7 +100,7 @@ class UserController extends Controller
     {
         return Validator::make($request->all(), [
             'nama' => 'bail|required',
-            'email' => "bail|required|email|unique:Modules\ManageUser\Entities\User,email,$id,id",
+            'email' => "bail|required|email" . ($id ? "":"|unique:Modules\ManageUser\Entities\User,email"),
             'telepon' => 'bail|required',
             'password' => 'bail|sometimes|confirmed|min:8'
         ]);

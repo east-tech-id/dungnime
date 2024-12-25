@@ -97,8 +97,8 @@ class Anime extends Model
         return 'slug';
     }
 
-    public function episode()
+    public function episodes(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany('Modules\Konten\Entities\Episode', 'anime_id');
+        return $this->hasMany(Episode::class);
     }
 }

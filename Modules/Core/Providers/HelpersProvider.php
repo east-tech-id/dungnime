@@ -114,13 +114,12 @@ if (! function_exists('prepare_main_menu')) {
 
                 $uri_child = [];
                 foreach ($item['children'] as $key => $value) {
-                    array_push($uri_child, $value['uri']);
+                    $uri_child[] = $value['uri'];
                 }
-
                 if ($uri_child) {
                     $array_uri = [];
                     foreach ($uri_child as $key => $value) {
-                        array_push($array_uri, in_array($value , \Auth::user()->grup_user ? \Auth::user()->grup_user->hak_akses : []));
+                        $array_uri[] = in_array($value, \Auth::user()->grup_user ? \Auth::user()->grup_user->hak_akses : []);
                     }
 
                     $item['show'] = \Auth::user()->is_admin || in_array($item['show'], $array_uri);

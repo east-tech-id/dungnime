@@ -5,6 +5,37 @@
 
 Website ini dibuat dengan framework Laravel dan Vue.js ini merupakan website yang ditunjukan untuk website streaming film,anime dan lain-lain.
 
+## Cara Install
+1. Jalankan Migrasi Database dengan perintah
+```bash
+  php artisan migrate
+```
+
+2. Generate main menu data
+- perintah di bawah ini akan menghasilkan file application_main_menu.json di storage/app/public
+```bash
+  php artisan module:seed ManageUser
+```
+
+3. Jalankan Seeder Database
+```bash
+  php artisan module:seed ManageUser
+```
+
+4. Coba login dengan url berikut ini:
+```
+http://dungnime.test/auth/login
+email: admin@admin.com
+pass: password 
+```
+
+5. Buat symlink untuk assest dengan perintah:
+- perintah dibawah ini akan menghasilkan symlink dengan nama media berlokasi di root project yang akan mengarah ke storage/app/public
+```bash
+  php artisan storage:link
+```
+
+
 ## Preview
 
 <p align="center"><a href="https://imgur.com/gallery/0wuZl5K" target="_blank"><img src="https://i.imgur.com/TRRUMot.png"></a></p>

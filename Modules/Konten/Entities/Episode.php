@@ -94,6 +94,6 @@ class Episode extends Model
      */
     public function anime()
     {
-        return $this->belongsTo('Modules\Konten\Entities\Anime', 'anime_id');
+        return $this->belongsTo(Anime::class);
     }
 }

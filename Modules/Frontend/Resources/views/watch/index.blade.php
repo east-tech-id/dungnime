@@ -27,7 +27,7 @@
                         <select onChange="window.location.href=this.value">
                              <option value="#">Pilih Episode</option>
                              @foreach($anime as $r_anime)
-                             @foreach($r_anime->episode as $slug_episode)
+                             @foreach($r_anime->episodes as $slug_episode)
                             <option value="{{$slug_episode->slug}}">{{$slug_episode->title}}</option>
                              @endforeach
                              @endforeach

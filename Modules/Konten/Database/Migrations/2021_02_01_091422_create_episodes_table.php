@@ -16,7 +16,7 @@ class CreateEpisodesTable extends Migration
         Schema::create('episode', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('slug')->nullable();
-            $table->string('anime_id');
+            $table->unsignedInteger('anime_id');
             $table->string('title');
             $table->longText('link_video');
             $table->timestamps();

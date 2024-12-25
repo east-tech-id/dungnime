@@ -18,11 +18,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-    	$banner = Anime::with('episode')->whereNull('deleted_at')->whereNotNull('banner')->where('publish', 'Publish')->inRandomOrder()->take(3)->get();
-    	$ongoing = Anime::with('episode')->whereNull('deleted_at')->where('publish', 'Publish')->where('status', 'On Going')->orderBy('created_at', 'DESC')->take(6)->get();
-    	$popular = Anime::with('episode')->whereNull('deleted_at')->where('publish', 'Publish')->orderBy('rating', 'DESC')->take(6)->get();
-    	$recent = Episode::with('anime')->whereNull('deleted_at')->orderBy('created_at', 'DESC')->take(6)->get();
-    	$recommended = Anime::with('episode')->whereNull('deleted_at')->where('publish', 'Publish')->inRandomOrder()->limit(5)->get();
+    	$banner = Anime::query()->whereHas('episodes')->whereNull('deleted_at')
+            ->whereNotNull('banner')->where('publish', 'Publish')
+            ->inRandomOrder()->take(3)->get();
+    	$ongoing = Anime::query()->whereHas('episodes')->whereNull('deleted_at')->where('publish', 'Publish')->where('status', 'On Going')->orderBy('created_at', 'DESC')->take(6)->get();
+    	$popular = Anime::query()->whereHas('episodes')->whereNull('deleted_at')->where('publish', 'Publish')->orderBy('rating', 'DESC')->take(6)->get();
+    	$recent = Episode::query()->whereHas('anime')->whereNull('deleted_at')->orderBy('created_at', 'DESC')->take(6)->get();
+    	$recommended = Anime::query()->whereHas('episodes')->whereNull('deleted_at')->where('publish', 'Publish')->inRandomOrder()->limit(5)->get();
     	// return $recommended;
         return view('frontend::home.index')->with([
             'ongoing'     => $ongoing,
@@ -36,7 +38,7 @@ class HomeController extends Controller
 
     public function detail($slug)
     {
-    	$anime_detail = Anime::with('episode')->whereNull('deleted_at')->where('publish', 'Publish')->where('slug', $slug)->get();
+    	$anime_detail = Anime::with('episodes')->whereNull('deleted_at')->where('publish', 'Publish')->where('slug', $slug)->get();
     	// return $anime_detail;
         return view('frontend::home.detail')->with([
             'anime_detail' => $anime_detail,
@@ -45,8 +47,8 @@ class HomeController extends Controller
 
     public function ongoing()
     {
-        $ongoing = Anime::with('episode')->whereNull('deleted_at')->where('publish', 'Publish')->where('status', 'On Going')->orderBy('created_at', 'DESC')->paginate(9);
-        $recommended = Anime::with('episode')->whereNull('deleted_at')->where('publish', 'Publish')->inRandomOrder()->limit(5)->get();
+        $ongoing = Anime::with('episodes')->whereNull('deleted_at')->where('publish', 'Publish')->where('status', 'On Going')->orderBy('created_at', 'DESC')->paginate(9);
+        $recommended = Anime::with('episodes')->whereNull('deleted_at')->where('publish', 'Publish')->inRandomOrder()->limit(5)->get();
     	
         return view('frontend::home.ongoing')->with([
             'ongoing'     => $ongoing,
@@ -57,8 +59,8 @@ class HomeController extends Controller
 
     public function popular()
     {
-        $popular = Anime::with('episode')->whereNull('deleted_at')->where('publish', 'Publish')->orderBy('rating', 'DESC')->take(6)->paginate(9);
-        $recommended = Anime::with('episode')->whereNull('deleted_at')->where('publish', 'Publish')->inRandomOrder()->limit(5)->get();
+        $popular = Anime::with('episodes')->whereNull('deleted_at')->where('publish', 'Publish')->orderBy('rating', 'DESC')->take(6)->paginate(9);
+        $recommended = Anime::with('episodes')->whereNull('deleted_at')->where('publish', 'Publish')->inRandomOrder()->limit(5)->get();
         
         return view('frontend::home.popular')->with([
             'popular'     => $popular,
@@ -70,7 +72,7 @@ class HomeController extends Controller
     public function recent()
     {
         $recent = Episode::with('anime')->whereNull('deleted_at')->orderBy('created_at', 'DESC')->paginate(9);
-        $recommended = Anime::with('episode')->whereNull('deleted_at')->where('publish', 'Publish')->inRandomOrder()->limit(5)->get();
+        $recommended = Anime::with('episodes')->whereNull('deleted_at')->where('publish', 'Publish')->inRandomOrder()->limit(5)->get();
         
         return view('frontend::home.recent')->with([
             'recent'      => $recent,
@@ -83,7 +85,7 @@ class HomeController extends Controller
     public function watch($anime, $episode)
     {   
         $episode = Episode::with('anime')->whereNull('deleted_at')->where('slug',$episode)->get();
-        $anime = Anime::withCount('episode')->with('episode')->where('slug',$anime)->get();
+        $anime = Anime::query()->withCount('episodes')->with('episodes')->where('slug',$anime)->get();
 
         return view('frontend::watch.index')->with([
             'episode' => $episode,
@@ -94,7 +96,7 @@ class HomeController extends Controller
 
     public function search(Request $request)
     {
-        $data = Anime::with('episode')->whereNull('deleted_at')->where('title', 'like', "%" . $request->search . "%")->where('publish', 'Publish')->orderBy('created_at', 'DESC')->paginate(8);
+        $data = Anime::with('episodes')->whereNull('deleted_at')->where('title', 'like', "%" . $request->search . "%")->where('publish', 'Publish')->orderBy('created_at', 'DESC')->paginate(8);
 
         return view('frontend::home.search')->with([
             'data'   => $data,
@@ -113,14 +115,14 @@ class HomeController extends Controller
     public function genreDetail(GenreAnime $genre)
     {
         $id = [];
-        $anime = Anime::with('episode')->where('publish', 'Publish')->get();
+        $anime = Anime::with('episodes')->where('publish', 'Publish')->get();
         foreach($anime as $arr_anime){
             if(in_array($genre->name, $arr_anime->genre)){
                 array_push($id, $arr_anime->id);
             }
         }
 
-        $data = Anime::with('episode')->whereNull('deleted_at')
+        $data = Anime::with('episodes')->whereNull('deleted_at')
                 ->whereIn('id', $id)
                 ->where('publish', 'Publish')
                 ->orderBy('created_at', 'DESC')
@@ -136,22 +138,22 @@ class HomeController extends Controller
     public function jadwal()
     {
        
-        $jadwal_senin = Anime::with('episode')->whereNull('deleted_at')->where('publish', 'Publish')->where('status', 'On Going')->where('jadwal_release', 'Senin')->orderBy('created_at', 'DESC')->take(6)->get();
+        $jadwal_senin = Anime::with('episodes')->whereNull('deleted_at')->where('publish', 'Publish')->where('status', 'On Going')->where('jadwal_release', 'Senin')->orderBy('created_at', 'DESC')->take(6)->get();
 
-        $jadwal_selasa = Anime::with('episode')->whereNull('deleted_at')->where('publish', 'Publish')->where('status', 'On Going')->where('jadwal_release', 'Selasa')->orderBy('created_at', 'DESC')->take(6)->get();
+        $jadwal_selasa = Anime::with('episodes')->whereNull('deleted_at')->where('publish', 'Publish')->where('status', 'On Going')->where('jadwal_release', 'Selasa')->orderBy('created_at', 'DESC')->take(6)->get();
 
-        $jadwal_rabu = Anime::with('episode')->whereNull('deleted_at')->where('publish', 'Publish')->where('status', 'On Going')->where('jadwal_release', 'Rabu')->orderBy('created_at', 'DESC')->take(6)->get();
+        $jadwal_rabu = Anime::with('episodes')->whereNull('deleted_at')->where('publish', 'Publish')->where('status', 'On Going')->where('jadwal_release', 'Rabu')->orderBy('created_at', 'DESC')->take(6)->get();
 
-        $jadwal_kamis = Anime::with('episode')->whereNull('deleted_at')->where('publish', 'Publish')->where('status', 'On Going')->where('jadwal_release', 'Kamis')->orderBy('created_at', 'DESC')->take(6)->get();
+        $jadwal_kamis = Anime::with('episodes')->whereNull('deleted_at')->where('publish', 'Publish')->where('status', 'On Going')->where('jadwal_release', 'Kamis')->orderBy('created_at', 'DESC')->take(6)->get();
 
-        $jadwal_jumat = Anime::with('episode')->whereNull('deleted_at')->where('publish', 'Publish')->where('status', 'On Going')->where('jadwal_release', 'Jumat')->orderBy('created_at', 'DESC')->take(6)->get();
+        $jadwal_jumat = Anime::with('episodes')->whereNull('deleted_at')->where('publish', 'Publish')->where('status', 'On Going')->where('jadwal_release', 'Jumat')->orderBy('created_at', 'DESC')->take(6)->get();
 
-        $jadwal_sabtu = Anime::with('episode')->whereNull('deleted_at')->where('publish', 'Publish')->where('status', 'On Going')->where('jadwal_release', 'Sabtu')->orderBy('created_at', 'DESC')->take(6)->get();
+        $jadwal_sabtu = Anime::with('episodes')->whereNull('deleted_at')->where('publish', 'Publish')->where('status', 'On Going')->where('jadwal_release', 'Sabtu')->orderBy('created_at', 'DESC')->take(6)->get();
 
-        $jadwal_minggu = Anime::with('episode')->whereNull('deleted_at')->where('publish', 'Publish')->where('status', 'On Going')->where('jadwal_release', 'Minggu')->orderBy('created_at', 'DESC')->take(6)->get();
+        $jadwal_minggu = Anime::with('episodes')->whereNull('deleted_at')->where('publish', 'Publish')->where('status', 'On Going')->where('jadwal_release', 'Minggu')->orderBy('created_at', 'DESC')->take(6)->get();
 
         
-        $recommended = Anime::with('episode')->whereNull('deleted_at')->where('publish', 'Publish')->inRandomOrder()->limit(5)->get();
+        $recommended = Anime::with('episodes')->whereNull('deleted_at')->where('publish', 'Publish')->inRandomOrder()->limit(5)->get();
         
         return view('frontend::home.jadwal')->with([
             'jadwal_senin' => $jadwal_senin,
@@ -170,12 +172,12 @@ class HomeController extends Controller
 
     public function animeList()
     {
-        $data = Anime::with('episode')->whereNull('deleted_at')
+        $data = Anime::with('episodes')->whereNull('deleted_at')
                 ->where('publish', 'Publish')
                 ->orderBy('title', 'ASC')
                 ->get();
                     
-        $on_going = Anime::with('episode')->whereNull('deleted_at')
+        $on_going = Anime::with('episodes')->whereNull('deleted_at')
                     ->where('publish', 'Publish')
                     ->where('status', 'On Going')
                     ->orderBy('created_at', 'DESC')
