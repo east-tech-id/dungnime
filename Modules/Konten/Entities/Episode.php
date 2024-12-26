@@ -26,7 +26,7 @@ class Episode extends Model
     protected $fillable = [
     	'anime_id',
         'title',
-        'link_video',
+        'video',
     ];
 
     /**
@@ -60,6 +60,15 @@ class Episode extends Model
      * @param  string  $value
      * @return string
      */
+
+    protected $appends = [
+        'link_video',
+    ];
+
+    public function getLinkVideoAttribute()
+    {
+        return (!empty($this->attributes['video'])) ? Storage::disk('public')->url('anime/video/'.$this->attributes['video']) : null;
+    }
 
     /**
      * Return the sluggable configuration array for this model.

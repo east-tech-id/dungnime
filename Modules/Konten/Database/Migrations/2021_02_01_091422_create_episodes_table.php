@@ -18,7 +18,7 @@ class CreateEpisodesTable extends Migration
             $table->string('slug')->nullable();
             $table->unsignedInteger('anime_id');
             $table->string('title');
-            $table->longText('link_video');
+            $table->string('video');
             $table->timestamps();
             $table->softDeletes();
         });

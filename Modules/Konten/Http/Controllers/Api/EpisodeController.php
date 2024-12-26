@@ -37,6 +37,14 @@ class EpisodeController extends Controller
 
             $data = Episode::create($request->all());
 
+            if ($request->hasFile('video')) {
+                $file_name = Str::slug($data->title, '-') .'-'. uniqid() . '.' . $request->file('video')->getClientOriginalExtension();
+                Storage::disk('public')->putFileAs('anime/video', $request->file('video'), $file_name
+                );
+                $data->video = $file_name;
+            }
+            $data->save();
+
             DB::commit();
             return response_json(true, null,"Episode Berhasil Disimpan", $data);            
         } catch (\Exception $e) {

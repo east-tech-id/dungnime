@@ -7,7 +7,7 @@
 	extend('min', min)
 	extend('max', max)
 	extend('image', image)
-    localize('id', id);
+  localize('id', id);
 
 	export default {
 		components: {
@@ -61,16 +61,15 @@
 			form_alert_color: '',
 			form_alert_text: '',
 			prompt_delete: false,
-            delete_loader: false,
+      delete_loader: false,
 		}),
 		mounted() {
-            this.getFormData();
-        },
+        this.getFormData();
+    },
 		methods: {
     		getFormData() {
     			if (this.dataUri) {
     				this.field_state = true
-
     		        axios
     		            .get(this.dataUri)
     		            .then(response => {
@@ -89,14 +88,13 @@
     		            			url_thumbnail: data.url_thumbnail,
     		            			url_banner: data.url_banner,
 
-    		            		},
-
-    			                this.field_state = false
+    		            		}
+                        this.field_state = false
     		            	} else {
     		            		this.form_alert_state = true
 		    		            this.form_alert_color = 'error'
 		    		            this.form_alert_text = response.data.message
-			    		        this.field_state = false
+			    		          this.field_state = false
     		            	}
     		            })
     		            .catch(error => {
@@ -134,12 +132,9 @@
 	    	},
 		    postFormData() {
 	    		const form_data = new FormData(this.$refs['post-form']);
-	    		
 	    		if (this.dataUri) {
 	    		    form_data.append("_method", "put");
 	    		}
-	    		
-
 	    		axios.post(this.actionForm, form_data)
 	    		    .then((response) => {
 	    		        if (response.data.success) {
