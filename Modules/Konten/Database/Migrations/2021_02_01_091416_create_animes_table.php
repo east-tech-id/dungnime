@@ -22,6 +22,9 @@ class CreateAnimesTable extends Migration
             $table->string('rating')->nullable();
             $table->longText('thumbnail')->nullable();
             $table->string('publish')->nullable();
+            $table->string('banner')->nullable();
+            $table->string('status')->nullable();
+            $table->string('jadwal_release')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

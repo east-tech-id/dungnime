@@ -94,7 +94,6 @@
                                 :src="form_data.url_thumbnail"
                             ></v-img>
                         </v-card>
-                        
                     </a>
                 </v-col>
             </v-row>
