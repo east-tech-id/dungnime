@@ -96,6 +96,7 @@ Object(vee_validate__WEBPACK_IMPORTED_MODULE_0__["localize"])('id', vee_validate
       form_data: {
         anime_id: '',
         title: '',
+        video: '',
         link_video: ''
       },
       field_state: false,
@@ -118,6 +119,7 @@ Object(vee_validate__WEBPACK_IMPORTED_MODULE_0__["localize"])('id', vee_validate
             _this.form_data = {
               anime_id: data.anime_id,
               title: data.title,
+              video: data.video,
               link_video: data.link_video
             };
             _this.field_state = false;
@@ -138,6 +140,7 @@ Object(vee_validate__WEBPACK_IMPORTED_MODULE_0__["localize"])('id', vee_validate
     clearForm: function clearForm() {
       this.form_data = {
         title: '',
+        video: '',
         link_video: ''
       };
       this.$refs.observer.reset();

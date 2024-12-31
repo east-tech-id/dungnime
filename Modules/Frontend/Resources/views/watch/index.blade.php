@@ -54,7 +54,6 @@
                         <div class="section-title">
                             <h5>Pilih Resolusi</h5>
                         </div>
-                        <a href="dungnime.test/p?480">480p</a>
                         <a href="#">720p</a>
                         <a href="#">1080p</a>
 s
