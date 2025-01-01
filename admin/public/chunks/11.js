@@ -177,9 +177,7 @@ Object(vee_validate__WEBPACK_IMPORTED_MODULE_0__["localize"])('id', vee_validate
           _this3.form_alert_state = true;
           _this3.form_alert_color = 'success';
           _this3.form_alert_text = response.data.message;
-          setTimeout(function () {
-            _this3["goto"](_this3.redirectUri);
-          }, 6000);
+          _this3["goto"](_this3.redirectUri);
         } else {
           _this3.field_state = false;
           _this3.form_alert_state = true;

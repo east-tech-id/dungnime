@@ -17,7 +17,7 @@
 
         <validation-provider v-slot="{ errors }" name="Link Video" rules="video">
             <v-file-input
-                    class="my-4"
+                    class="mt-4 mb-8"
                     accept="video/*"
                     prepend-icon="mdi-video"
                     hint="Hanya menerima file video"
@@ -51,21 +51,44 @@
                 </v-col>
             </v-row>
         </validation-provider>
-{{--        <validation-provider rules="required" name="Link Video" v-slot="{ errors }">--}}
-{{--            <v-text-field--}}
-{{--                class="my-4"--}}
-{{--                v-model="form_data.link_video"--}}
-{{--                label="Link Video"--}}
-{{--                name="link_video"--}}
-{{--                clearable--}}
-{{--                clear-icon="mdi-eraser-variant"--}}
-{{--                hint="* {{__('required')}}"--}}
-{{--                :persistent-hint="true"--}}
-{{--                :error-messages="errors"--}}
-{{--                :disabled="field_state"--}}
-{{--            ></v-text-field>--}}
-{{--        </validation-provider>--}}
-      
+        <div v-if="form_data.embeds && form_data.embeds.length">
+        <div v-for="(emb, index) in form_data.embeds">
+            <v-row>
+                <v-col cols="12" md="9">
+                    <validation-provider rules="required" name="Link Video" v-slot="{ errors }">
+                        <v-text-field
+                                v-model="emb.embed_link"
+                                label="Link Video"
+                                clearable
+                                clear-icon="mdi-eraser-variant"
+                                hint="* {{__('required')}}"
+                                :persistent-hint="true"
+                                :error-messages="errors"
+                                :disabled="field_state"
+                        ></v-text-field>
+                    </validation-provider>
+                </v-col>
+                <v-col cols="12" md="3">
+                    <v-checkbox
+                            v-model="emb.is_active"
+                            color="red"
+                            label="Is Active"
+                    ></v-checkbox>
+                </v-col>
+            </v-row>
+            <v-divider :thickness="2" class="mt-4 mb-8"></v-divider>
+        </div>
+        </div>
+        <div class="d-flex" style="justify-content: end">
+            <v-btn
+                    variant="outlined"
+                    size="small"
+                    @click="addServer"
+                    :disabled="field_state"
+            >
+                Tambah Server
+            </v-btn>
+        </div>
         <v-btn
         	class="mr-4"
           	:loading="field_state"

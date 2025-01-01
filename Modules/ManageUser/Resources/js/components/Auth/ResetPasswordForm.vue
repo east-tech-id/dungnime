@@ -66,10 +66,7 @@
 	    		            this.form_alert_state = true
 	    		            this.form_alert_color = 'success'
 	    		            this.form_alert_text = response.data.message
-
-	    		            setTimeout(() => {
-			                    this.goto(response.data.data);
-			                }, 6000);
+                      this.goto(response.data.data);
 	    		        } else {
 		    		        this.field_state = false
 

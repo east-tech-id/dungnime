@@ -117,9 +117,7 @@ Object(vee_validate__WEBPACK_IMPORTED_MODULE_0__["localize"])('id', vee_validate
           _this2.form_alert_state = true;
           _this2.form_alert_color = 'success';
           _this2.form_alert_text = response.data.message;
-          setTimeout(function () {
-            _this2["goto"](response.data.data);
-          }, 6000);
+          _this2["goto"](response.data.data);
         } else {
           _this2.field_state = false;
           _this2.form_alert_state = true;

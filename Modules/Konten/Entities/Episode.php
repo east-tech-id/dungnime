@@ -27,7 +27,10 @@ class Episode extends Model
     	'anime_id',
         'title',
         'video',
+        'embeds'
     ];
+
+    protected $casts = [ 'embeds' => 'array' ];
 
     /**
      * The attributes that should be mutated to dates.

@@ -38,7 +38,7 @@
                     <div class="col-lg-2">
                         <div class="header__logo">
                             <a href="{{ route('frontend.home') }}">
-                                <img src="/Modules/Frontend/Resources/js/img/logo.png" alt="">
+                                <img src="/Modules/Frontend/Resources/js/img/logo-dunia-anime.png" class="rounded" style="max-height: 50px;" alt="logo">
                             </a>
                         </div>
                     </div>
@@ -90,19 +90,24 @@
                 <div class="row">
                     <div class="col-lg-3">
                         <div class="footer__logo">
-                            <a href="{{ route('frontend.home') }}"><img src="/Modules/Frontend/Resources/js/img/logo.png" alt=""></a>
+                            <a href="{{ route('frontend.home') }}">
+                                <img src="/Modules/Frontend/Resources/js/img/logo-dunia-anime.png" class="rounded" style="max-height: 50px;" alt="logo">
+                            </a>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="footer__nav">
                             <ul>
-                                <li class="active"><a href="{{route('frontend.home')}}">Home</a></li>
+                                <li class="{{ Request::segment(1) == '' ? 'active' : ''}}"><a href="{{ route('frontend.home') }}">Home</a></li>
+                                <li class="{{ Request::segment(1) == 'genre-list' ? 'active' : ''}}"><a href="{{ route('frontend.genre') }}">List Genre</a></li>
+                                <li class="{{ Request::segment(1) == 'anime-list' ? 'active' : ''}}"><a href="{{ route('frontend.anime-list') }}">List Anime</a></li>
+                                <li class="{{ Request::segment(1) == 'jadwal' ? 'active' : ''}}"><a href="{{route('frontend.jadwal')}}">Jadwal</a></li>
                             </ul>
                         </div>
                     </div>
                     <div class="col-lg-3">
                         <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                          Copyright &copy;<script>document.write(new Date().getFullYear());</script> <strong class="text-secondary">DungNime</strong> All rights reserved | This template is made by <a href="https://colorlib.com" class="text-secondary" target="_blank">Colorlib</a>
+                          Copyright &copy;<script>document.write(new Date().getFullYear());</script> <strong class="text-secondary">Dunia Anime</strong> All rights reserved | This template is made by <a href="https://colorlib.com" class="text-secondary" target="_blank">Colorlib</a>
                           <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
                     </div>
                 </div>

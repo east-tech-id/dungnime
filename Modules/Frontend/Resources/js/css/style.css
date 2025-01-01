@@ -1319,6 +1319,14 @@ ol {
 	background: #ffffff;
 }
 
+/*----------------------
+Navbar Pill Tab
+------------------------*/
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+	color: #fff;
+	background-color: #e53637;
+}
+
 /*---------------------
   Breadcrumb
 -----------------------*/

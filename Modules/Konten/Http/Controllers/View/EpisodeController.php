@@ -45,8 +45,8 @@ class EpisodeController extends Controller
            
         ];
 
-        $this->breadcrumbs[] = ['href' => route('anime.episode.index',[$anime->slug]), 'text' => "Anime Detail"];
-        $this->breadcrumbs[] = ['href' => route('anime.episode.index',[$anime->slug]), 'text' =>  $anime->title ?? '']; 
+//        $this->breadcrumbs[] = ['href' => route('anime.episode.index',[$anime->slug]), 'text' => "Anime Detail"];
+        $this->breadcrumbs[] = ['href' => route('anime.episode.index',[$anime->slug]), 'text' =>  $anime->title ?? ''];
         return view('konten::episode.index')
             ->with('page_title', 'Episode '. $anime->title)
             ->with('breadcrumbs', $this->breadcrumbs)
@@ -60,6 +60,7 @@ class EpisodeController extends Controller
      */
     public function create(Anime $anime)
     {
+        $this->breadcrumbs[] = ['href' => route('anime.episode.index',[$anime->slug]), 'text' =>  $anime->title ?? ''];
         return view('konten::episode.create')
             ->with('page_title', 'Tambah Episode '. $anime->title)
             ->with('breadcrumbs', $this->breadcrumbs)
@@ -74,6 +75,7 @@ class EpisodeController extends Controller
     public function edit(Episode $episode)
     {
         $anime = Anime::find($episode->anime_id);
+        $this->breadcrumbs[] = ['href' => route('anime.episode.index',[$anime->slug]), 'text' =>  $anime->title ?? ''];
         $this->breadcrumbs[] = ['href' => route('episode.edit', [ $episode->slug ]), 'text' => "Ubah Episode " . $episode->title];
 
         return view('konten::episode.edit')

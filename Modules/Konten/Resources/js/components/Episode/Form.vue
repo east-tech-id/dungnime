@@ -30,11 +30,16 @@
 			enabled: false,
 			periode_awal: false,
 			periode_akhir: false,
+      embed: {
+        is_active: false,
+        embed_link: ''
+      },
 			form_data: {
 				anime_id: '',
 				title: '',
 				video: '',
 				link_video: '',
+        embeds: []
 			},
 			field_state: false,
 			form_alert_state: false,
@@ -58,9 +63,11 @@
     		            			title: data.title,
     		            			video: data.video,
     		            			link_video: data.link_video,
+                          embeds: data.embeds ? [...data.embeds.map(function (item) {
+                            return {...item, is_active: item.is_active === 'true'}
+                          })] : []
     		            		}
-
-    			                this.field_state = false
+                        this.field_state = false
     		            	} else {
     		            		this.form_alert_state = true
 		    		            this.form_alert_color = 'error'
@@ -76,11 +83,15 @@
     		            });
     			}
     		},
+      addServer() {
+          this.form_data.embeds.push({...this.embed})
+      },
 			clearForm() {
 				this.form_data = {
 					title: '',
 					video: '',
 					link_video: '',
+          embeds: []
 				}
 				this.$refs.observer.reset()
 			},
@@ -95,7 +106,12 @@
       },
       postFormData() {
         const form_data = new FormData(this.$refs['post-form']);
-
+        if (this.form_data.embeds && this.form_data.embeds.length) {
+          this.form_data.embeds.forEach((item, index) => {
+            form_data.append(`embeds[${index}][embed_link]`, item.embed_link);
+            form_data.append(`embeds[${index}][is_active]`, item.is_active);
+          })
+        }
         if (this.dataUri) {
             form_data.append("_method", "put");
         }
@@ -106,9 +122,7 @@
                     this.form_alert_color = 'success'
                     this.form_alert_text = response.data.message
 
-                    setTimeout(() => {
-                        this.goto(this.redirectUri);
-                    }, 6000);
+                    this.goto(this.redirectUri);
                 } else {
                   this.field_state = false
 

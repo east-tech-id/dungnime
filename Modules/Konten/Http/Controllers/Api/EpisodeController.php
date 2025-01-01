@@ -33,6 +33,7 @@ class EpisodeController extends Controller
             $request->merge([
                 'anime_id' => $anime->id,
                 'title' => $anime->title.' '.$request->title,
+                'embeds' => $request->embeds
             ]);
 
             $data = Episode::create($request->all());

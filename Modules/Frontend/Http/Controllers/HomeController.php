@@ -3,6 +3,7 @@
 namespace Modules\Frontend\Http\Controllers;
 
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Str;
@@ -38,9 +39,8 @@ class HomeController extends Controller
 
     public function detail($slug)
     {
-    	$anime_detail = Anime::with('episodes')->whereNull('deleted_at')->where('publish', 'Publish')->where('slug', $slug)->get();
-    	// return $anime_detail;
-        return view('frontend::home.detail')->with([
+    	$anime_detail = Anime::with('episodes')->whereNull('deleted_at')->where('publish', 'Publish')->where('slug', $slug)->first();
+    	return view('frontend::home.detail')->with([
             'anime_detail' => $anime_detail,
         ]);
     }
@@ -85,11 +85,14 @@ class HomeController extends Controller
     public function watch($anime, $episode)
     {   
         $episode = Episode::with('anime')->whereNull('deleted_at')->where('slug',$episode)->get();
-        $anime = Anime::query()->withCount('episodes')->with('episodes')->where('slug',$anime)->get();
+        $all_episode = Episode::query()->select('title', 'slug', 'anime_id')
+            ->whereHas('anime', function (Builder $query) use ($anime) {
+                return $query->where('slug', '=', $anime);
+            })->get();
 
         return view('frontend::watch.index')->with([
             'episode' => $episode,
-            'anime' => $anime,
+            'all_episode' => $all_episode,
         ]);
     }
 
