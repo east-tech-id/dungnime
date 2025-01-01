@@ -62,10 +62,9 @@
                       this.goto(response.data.data);
 	    		        } else {
 		    		        this.field_state = false
-
-	    		            this.form_alert_state = true
-	    		            this.form_alert_color = 'error'
-	    		            this.form_alert_text = response.data.message
+                    this.form_alert_state = true
+                    this.form_alert_color = 'error'
+                    this.form_alert_text = response.data.message
 	    		        }
 	    		    })
 	    		    .catch((error) => {
