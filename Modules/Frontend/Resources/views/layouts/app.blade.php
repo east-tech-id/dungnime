@@ -38,7 +38,8 @@
                     <div class="col-lg-2">
                         <div class="header__logo">
                             <a href="{{ route('frontend.home') }}">
-                                <img src="/Modules/Frontend/Resources/js/img/logo-dunia-anime.png" class="rounded" style="max-height: 50px;" alt="logo">
+                                <img src="/Modules/Frontend/Resources/js/img/logo-dunia-anime.png" class="rounded"
+                                     style="max-height: 50px;" alt="logo">
                             </a>
                         </div>
                     </div>
@@ -107,7 +108,7 @@
                     </div>
                     <div class="col-lg-3">
                         <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                          Copyright &copy;<script>document.write(new Date().getFullYear());</script> <strong class="text-secondary">Dunia Anime</strong> All rights reserved | This template is made by <a href="https://colorlib.com" class="text-secondary" target="_blank">Colorlib</a>
+                          Copyright &copy;<script>document.write(new Date().getFullYear());</script> <strong class="text-secondary">Dunia Anime</strong> <br/> All rights reserved <br/> This template is made by <a href="https://colorlib.com" class="text-secondary" target="_blank">Colorlib</a>
                           <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
                     </div>
                 </div>

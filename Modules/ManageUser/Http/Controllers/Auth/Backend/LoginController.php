@@ -74,7 +74,7 @@ class LoginController extends Controller
         if (! $request->expectsJson()) {
             return redirect($this->redirectPath);
         }
-        return response_json(true, null, 'Login Berhasil.', redirect($this->redirectPath)->getTargetUrl());
+        return response_json(true, null, 'Logout Berhasil.', redirect($this->redirectPath)->getTargetUrl());
     }
 
     /**

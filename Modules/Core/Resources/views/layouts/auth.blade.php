@@ -48,7 +48,7 @@
                                                     <div class="d-flex align-center pa-10">
                                                         <div>
                                                             <h2 class="display-1 white--text font-weight-medium">
-                                                                DUNGNIME
+                                                                Dunia Anime
                                                             </h2>
                                                         </div>
                                                     </div>

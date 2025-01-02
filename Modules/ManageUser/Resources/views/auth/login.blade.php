@@ -2,10 +2,8 @@
 
 @section('content')
     <div align="center">
-    <img
-        src="{{url('storage/app/public/img/logoproex.png')}}"
-        alt="Logo FKUI"
-    >
+    <img src="/Modules/Frontend/Resources/js/img/logo-dunia-anime.png" class="rounded" style="max-height: 50px;"
+         alt="logo">
     <h2 class="font-weight-bold mt-4 blue-grey--text text--darken-2">Masuk Dengan Akun Anda</h2>
     </div>
     <login-form

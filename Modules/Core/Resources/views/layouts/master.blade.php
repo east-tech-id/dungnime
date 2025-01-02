@@ -46,12 +46,8 @@
                                 <v-list-item-content>
                                     <v-list-item-title class="title">
                                         <a href="{{ url('/') }}" class="text-decoration-none">
-                                            <img
-                                                src="{{url('storage/app/public/img/logoproex.png')}}"
-                                                alt="Logo FKUI"
-                                                class="img-fluid"
-                                                width="220px"
-                                            >
+                                            <img src="/Modules/Frontend/Resources/js/img/logo-dunia-anime.png" class="rounded"
+                                                 style="max-height: 50px;" alt="logo">
                                         </a>
                                     </v-list-item-title>
                                 </v-list-item-content>

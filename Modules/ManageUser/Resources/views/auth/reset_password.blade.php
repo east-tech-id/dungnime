@@ -1,10 +1,8 @@
 @extends('core::layouts.auth')
 
 @section('content')
-    <img
-        src="{{url('storage/app/public/img/logofkui.png')}}"
-        alt="Logo FKUI"
-    >
+    <img src="/Modules/Frontend/Resources/js/img/logo-dunia-anime.png" class="rounded" style="max-height: 50px;"
+         alt="logo">
     <h2 class="font-weight-bold mt-4 blue-grey--text text--darken-2">Atur Ulang Password</h2>
     <reset-password-form
         inline-template

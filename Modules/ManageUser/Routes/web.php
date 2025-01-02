@@ -30,7 +30,7 @@ Route::prefix('kelola-user')->namespace('View')->group(function() {
 
 });
 
-Route::prefix('auth')->namespace('Auth')->group(function() {
+Route::prefix('admin_area')->namespace('Auth')->group(function() {
 	Route::namespace('Backend')->group(function() {
 		Route::get('login', 'LoginController@showLoginForm')->name('login');
 		Route::post('login', 'LoginController@login')->name('post-login');
