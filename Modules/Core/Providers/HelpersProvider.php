@@ -200,44 +200,45 @@ if (! function_exists('get_access_url')) {
         $output = [];
         foreach ($routes as $key => $route) {
             $array_name = explode('.', $route['name']);
-            $signed_name = [
-                "index", 
-                "create",
-                "store",
-                "show",
-                "edit",
-                "update",
-                "destroy",
-                "table",
-                "data",
-                "helper",
-                "import",
-            ];
+            if (count($array_name) > 1) {
+                $signed_name = [
+                    "index",
+                    "create",
+                    "store",
+                    "show",
+                    "edit",
+                    "update",
+                    "destroy",
+                    "table",
+                    "data",
+                    "helper",
+                    "import",
+                ];
+                if (Str::contains($array_name[1], $signed_name)) {
+                    $menu = Str::title($path = str_replace('-', ' ', $array_name[0]));
+                } else {
+                    $menu = Str::title($path = str_replace('-', ' ', $array_name[1]));
+                }
 
-            if (Str::contains($array_name[1], $signed_name)) {
-                $menu = Str::title($path = str_replace('-', ' ', $array_name[0]));
-            } else {
-                $menu = Str::title($path = str_replace('-', ' ', $array_name[1]));
+                $route['menu'] = $menu;
+                $array_name = explode('.', $route['name']);
+                if (end($array_name) == 'index') {
+                    $route['deskripsi'] = 'Tabel ' . Str::title(str_replace('-', ' ', $menu));
+                } elseif (end($array_name) == 'create') {
+                    $route['deskripsi'] = 'Tambah ' . Str::title(str_replace('-', ' ', $menu));
+                } elseif (end($array_name) == 'edit') {
+                    $route['deskripsi'] = 'Ubah ' . Str::title(str_replace('-', ' ', $menu));
+                } elseif (end($array_name) == 'show') {
+                    $route['deskripsi'] = 'Detil ' . Str::title(str_replace('-', ' ', $menu));
+                } elseif (end($array_name) == 'destroy') {
+                    $route['deskripsi'] = 'Hapus ' . Str::title(str_replace('-', ' ', $menu));
+                } elseif (end($array_name) == 'import') {
+                    $route['deskripsi'] = 'Import ' . Str::title(str_replace('-', ' ', $menu));
+                } else {
+                    $route['deskripsi'] = '';
+                }
+                $output[] = $route;
             }
-            
-            $route['menu'] = $menu;
-            $array_name = explode('.', $route['name']);
-            if (end($array_name) == 'index') {
-                $route['deskripsi'] = 'Tabel ' . Str::title(str_replace('-', ' ', $menu));
-            } elseif (end($array_name) == 'create') {
-                $route['deskripsi'] = 'Tambah ' . Str::title(str_replace('-', ' ', $menu));
-            } elseif (end($array_name) == 'edit') {
-                $route['deskripsi'] = 'Ubah ' . Str::title(str_replace('-', ' ', $menu));
-            } elseif (end($array_name) == 'show') {
-                $route['deskripsi'] = 'Detil ' . Str::title(str_replace('-', ' ', $menu));
-            } elseif (end($array_name) == 'destroy') {
-                $route['deskripsi'] = 'Hapus ' . Str::title(str_replace('-', ' ', $menu));
-            } elseif (end($array_name) == 'import') {
-                $route['deskripsi'] = 'Import ' . Str::title(str_replace('-', ' ', $menu));
-            } else {
-                $route['deskripsi'] = '';
-            }
-            $output[] = $route;
         }
 
         \Log::info(collect($output)->groupBy('menu')->toArray());
