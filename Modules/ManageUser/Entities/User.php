@@ -79,7 +79,7 @@ class User extends Authenticatable /*implements MustVerifyEmail*/
      *
      * @return array
      */
-    public function sluggable()
+    public function sluggable(): array
     {
         return [
             'slug' => [
