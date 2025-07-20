@@ -1,26 +1,28 @@
+version: "3.8"
+
 services:
-  app:
+  dunime_app:
+    image: dunime_app_image
+    container_name: dunime_app_container
     build: .
-    container_name: dunime-app
     ports:
       - "8080:80"
-    volumes:
-      - .:/app
     env_file:
       - .env
     depends_on:
-      - db
-
-  db:
-    image: mariadb:11.4.5
-    container_name: dunime-db
-    restart: always
-    ports:
-      - "33060:3306" # HostPort:ContainerPort
+      - dunime_db
     volumes:
-      - db_data:/var/lib/mysql
+      - ./.env:/app/.env
+
+  dunime_db:
+    image: mariadb:11.4.5
+    container_name: dunime_db_container
     env_file:
       - .env
+    volumes:
+      - dunime_db_data:/var/lib/mysql  # path ini seharusnya /var/lib/mysql, bukan /var/lib/mariadb/data
+    ports:
+      - "3308:3306"
 
 volumes:
-  db_data:
+  dunime_db_data:
